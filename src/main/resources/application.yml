@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /person
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fullstack_auth
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    show-sql: true
