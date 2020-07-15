@@ -9,6 +9,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.auth.domain.Person;
@@ -16,14 +17,19 @@ import ru.job4j.auth.repository.PersonRepository;
 import java.util.List;
 import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -76,7 +82,9 @@ public class PersonControllerTest {
         given(repository.save(new Person("ivan", "123"))).willReturn(person);
 
         mvc.perform(post("/")
-                .param("login", "ivan").param("password", "123"))
+                .param("login", "ivan").param("password", "123")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(person)))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
@@ -91,7 +99,9 @@ public class PersonControllerTest {
         given(repository.save(new Person("ban", "123"))).willReturn(person);
 
         mvc.perform(put("/")
-                .param("login", "ban").param("password", "123"))
+                .param("login", "ban").param("password", "123")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(person)))
                 .andDo(print())
                 .andExpect(status().isOk());
 

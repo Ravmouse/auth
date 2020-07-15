@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.auth.domain.Person;
 import ru.job4j.auth.repository.PersonRepository;
@@ -40,12 +41,12 @@ public class PersonController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Person> create(@ModelAttribute Person person) {
+    public ResponseEntity<Person> create(@RequestBody Person person) {
         return new ResponseEntity<>(repository.save(person), HttpStatus.CREATED);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@ModelAttribute Person person) {
+    public ResponseEntity<Void> update(@RequestBody Person person) {
         repository.save(person);
         return ResponseEntity.ok().build();
     }
