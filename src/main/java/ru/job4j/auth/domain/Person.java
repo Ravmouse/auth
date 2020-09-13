@@ -1,9 +1,15 @@
 package ru.job4j.auth.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Vitaly Vasilyev, date: 29.06.2020, e-mail: rav.energ@rambler.ru
@@ -16,6 +22,14 @@ public class Person {
     private int id;
     private String login;
     private String password;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "person_role",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Collection<Role> roles = new ArrayList<>();
 
     public Person() {
     }

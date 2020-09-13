@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /person
+    context-path: /chat
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/fullstack_auth
