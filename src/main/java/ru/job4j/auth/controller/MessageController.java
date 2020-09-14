@@ -44,7 +44,9 @@ public class MessageController {
      */
     @GetMapping("/{messageId}")
     public ResponseEntity<Message> messageById(@PathVariable int messageId) {
-        final Message messageById = messages.findById(messageId).orElse(new Message());
+        final Message messageById = messages
+                .findById(messageId)
+                .orElse(new Message());
         return new ResponseEntity<>(messageById, HttpStatus.OK);
     }
 
@@ -63,7 +65,9 @@ public class MessageController {
      */
     @PutMapping
     public ResponseEntity<Message> update(@RequestBody Message message) {
-        final Message found = messages.findById(message.getId()).get();
+        final Message found = messages
+                .findById(message.getId())
+                .orElse(new Message());
         found.setMessage(message.getMessage());
         messages.save(found);
         return new ResponseEntity<>(found, HttpStatus.NO_CONTENT);

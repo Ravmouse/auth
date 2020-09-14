@@ -38,7 +38,9 @@ public class RoomController {
      */
     @GetMapping
     public List<Room> rooms() {
-        return StreamSupport.stream(rooms.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport
+                .stream(rooms.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     /**

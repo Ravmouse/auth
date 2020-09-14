@@ -35,7 +35,9 @@ public class PersonController {
      */
     @GetMapping
     public List<Person> persons() {
-        return StreamSupport.stream(persons.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport
+                .stream(persons.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     /**
