@@ -8,5 +8,5 @@ import ru.job4j.auth.domain.Person;
  * @version 1.0
  */
 public interface PersonRepository extends CrudRepository<Person, Integer> {
-
+    Person findPersonByLogin(String login);
 }
